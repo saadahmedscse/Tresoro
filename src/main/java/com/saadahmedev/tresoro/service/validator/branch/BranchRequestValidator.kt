@@ -18,11 +18,15 @@ import org.springframework.stereotype.Service
 @Qualifier(Constants.BeanQualifier.BRANCH_REQUEST_VALIDATOR)
 class BranchRequestValidator : RequestValidator<Branch, BranchDto, Long, BranchRepository>() {
 
+    @Autowired
+    private lateinit var branchRepository: BranchRepository
+
     override fun isCreateRequestValid(body: BranchDto?): ResponseEntity<ApiResponse> {
         return when {
             body == null -> badRequest(message = "Branch request body is required")
             body.branchName.isNullOrBlank() -> badRequest(message = "Branch name is required")
             body.branchCode.isNullOrBlank() -> badRequest(message = "Branch code is required")
+            branchRepository.findByBranchCode(body.branchCode).isPresent -> badRequest(message = "Branch with the code ${body.branchCode} already exist")
             body.routingNumber.isNullOrBlank() -> badRequest(message = "Routing number is required")
 
             else -> ServerResponse.ok()

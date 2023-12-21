@@ -39,7 +39,7 @@ abstract class RequestValidator<E, T, ID, R: JpaRepository<E, ID>> {
             )
         } else {
             ResponseWithResult(
-                ServerResponse.badRequest(message = "Data found with the id $id"),
+                ServerResponse.badRequest(message = "No data found with the id $id"),
                 null
             )
         }

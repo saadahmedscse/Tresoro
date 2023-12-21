@@ -2,6 +2,7 @@ package com.saadahmedev.tresoro.dto.branch
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.saadahmedev.tresoro.entity.branch.Branch
+import com.saadahmedev.tresoro.util.DateUtil
 
 data class BranchDto(
     @JsonProperty("branch_name")
@@ -15,7 +16,9 @@ data class BranchDto(
         return Branch(
             branchCode = branchCode,
             branchName = branchName,
-            routingNumber = routingNumber
+            routingNumber = routingNumber,
+            createdAt = DateUtil.timeInstant(),
+            updatedAt = DateUtil.timeInstant()
         )
     }
 }

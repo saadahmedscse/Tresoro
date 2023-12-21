@@ -13,5 +13,9 @@ data class Branch(
     @Column(name = "branch_name", nullable = false)
     var branchName: String? = null,
     @Column(name = "routing_number", nullable = false)
-    var routingNumber: String? = null
+    var routingNumber: String? = null,
+    @Column(name = "created_at", nullable = false, updatable = false)
+    var createdAt: String? = null,
+    @Column(name = "updated_at", nullable = false)
+    var updatedAt: String? = null
 )

@@ -1,6 +1,7 @@
 package com.saadahmedev.tresoro.security
 
 import com.saadahmedev.tresoro.dto.user.UserResponse
+import com.saadahmedev.tresoro.entity.user.UserType
 import com.saadahmedev.tresoro.repository.user.UserRepository
 import com.saadahmedev.tresoro.util.ifNullOrBlank
 import io.jsonwebtoken.Claims
@@ -34,11 +35,43 @@ class JwtService {
 
     fun getUsername(token: String): String = getClaimFromToken(token, Claims::getSubject)
 
-    fun getUser(token: String): UserResponse? = getClaimsFromToken(token)["user"] as UserResponse?
+    fun getUser(token: String): UserResponse = claimsToUser(getClaimsFromToken(token))
 
-    fun getUserRole(token: String): String? = getClaimsFromToken(token)["authority"] as String?
+    fun getUserRole(token: String): String? = getUser(token).role?.name
 
-    fun getUserId(token: String): Long? = getUser(token)?.id
+    fun getUserId(token: String): Long? = getUser(token).id
+
+    private fun claimsToUser(claims: Claims): UserResponse {
+        val userClaims = claims["user"] as? Map<*, *>
+        var userResponse = UserResponse()
+
+        userClaims?.let {
+            userResponse = UserResponse(
+                id = (it["id"] as Int).toLong(),
+                firstName = it["firstName"] as String?,
+                lastName = it["lastName"] as String?,
+                fullName = it["fullName"] as String?,
+                email = it["email"] as String?,
+                phone = it["phone"] as String?,
+                role =  getUserType(it["role"] as String?),
+                address = it["address"] as String?,
+                dateOfBrith = it["dateOfBirth"] as String?
+            )
+        }
+
+        return userResponse
+    }
+
+    private fun getUserType(role: String?): UserType? {
+        return when (role) {
+            "ADMIN" -> UserType.ADMIN
+            "MANAGER" -> UserType.MANAGER
+            "HR" -> UserType.HR
+            "EMPLOYEE" -> UserType.EMPLOYEE
+            "CUSTOMER" -> UserType.CUSTOMER
+            else -> null
+        }
+    }
 
     private fun setupClaims(claims: HashMap<String, Any>, username: String) {
         val simplifiedUserWrapper = userRepository.findByEmail(username).get().toUserResponse()

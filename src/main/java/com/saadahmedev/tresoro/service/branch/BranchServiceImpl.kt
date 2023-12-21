@@ -6,6 +6,7 @@ import com.saadahmedev.tresoro.entity.branch.Branch
 import com.saadahmedev.tresoro.repository.branch.BranchRepository
 import com.saadahmedev.tresoro.service.validator.RequestValidator
 import com.saadahmedev.tresoro.util.Constants
+import com.saadahmedev.tresoro.util.DateUtil
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
@@ -60,6 +61,7 @@ open class BranchServiceImpl : BranchService {
 
         if (!branchDto.branchName.isNullOrBlank()) branch.branchName = branchDto.branchName
         if (!branchDto.branchCode.isNullOrBlank()) branch.branchCode = branchDto.branchCode
+        branch.updatedAt = DateUtil.timeInstant()
 
         return try {
             branchRepository.save(branch)

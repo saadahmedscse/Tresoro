@@ -3,6 +3,7 @@ package com.saadahmedev.tresoro.service.auth
 import com.saadahmedev.springboot.server.ServerResponse
 import com.saadahmedev.tresoro.dto.auth.LoginDto
 import com.saadahmedev.tresoro.dto.user.UserDto
+import com.saadahmedev.tresoro.entity.user.User
 import com.saadahmedev.tresoro.repository.user.UserRepository
 import com.saadahmedev.tresoro.security.JwtService
 import com.saadahmedev.tresoro.service.validator.RequestValidator
@@ -32,15 +33,15 @@ class AuthenticationServiceImpl : AuthenticationService {
     private lateinit var passwordEncoder: PasswordEncoder
 
     @Autowired
-    @Qualifier(Constants.BeanQualifier.SIGN_UP_REQUEST_VALIDATOR)
-    private lateinit var signUpValidator: RequestValidator
+    @Qualifier(Constants.BeanQualifier.USER_REQUEST_VALIDATOR)
+    private lateinit var userValidator: RequestValidator<User, UserDto, Long, UserRepository>
 
     @Autowired
-    @Qualifier(Constants.BeanQualifier.LOGIN_REQUEST_VALIDATOR)
-    private lateinit var loginValidator: RequestValidator
+    @Qualifier(Constants.BeanQualifier.AUTH_REQUEST_VALIDATOR)
+    private lateinit var authValidator: RequestValidator<User, LoginDto, Long, UserRepository>
 
     override fun createAccount(userDto: UserDto?): ResponseEntity<*> {
-        val validationResult = signUpValidator.isValid(userDto)
+        val validationResult = userValidator.isCreateRequestValid(userDto)
         if (validationResult.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return validationResult
 
         return try {
@@ -52,7 +53,7 @@ class AuthenticationServiceImpl : AuthenticationService {
     }
 
     override fun login(loginDto: LoginDto?): ResponseEntity<*> {
-        val validationResult = loginValidator.isValid(loginDto)
+        val validationResult = authValidator.isCreateRequestValid(loginDto)
         if (validationResult.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return validationResult
 
         return if (authenticationManager.authenticate(UsernamePasswordAuthenticationToken(loginDto?.email, loginDto?.password)).isAuthenticated) {

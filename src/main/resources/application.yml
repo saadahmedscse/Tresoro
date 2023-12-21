@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Tresoro
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/tresoro
+    username: root
+    password: vampire
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+tresoro:
+  jwt:
+    secret-key: 0cb8480164ea5f886a49e5d95541cd4b604f52a335c3c44960de5fd48085e4e4
+  admin:
+    secret-key: dummy
+  manager:
+    secret-key: dummy
+  hr:
+    secret-key: dummy
+  employee:
+    secret-key: dummy

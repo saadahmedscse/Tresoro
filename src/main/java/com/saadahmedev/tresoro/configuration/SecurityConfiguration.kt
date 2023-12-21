@@ -32,7 +32,11 @@ open class SecurityConfiguration {
     open fun securityFilterChain(httpSecurity: HttpSecurity): SecurityFilterChain? {
         return httpSecurity.csrf { t -> t?.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("api/auth/**").permitAll()
+                it.requestMatchers(
+                    "api/auth/create-customer",
+                    "api/auth/create-admin",
+                    "api/auth/login"
+                ).permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement {

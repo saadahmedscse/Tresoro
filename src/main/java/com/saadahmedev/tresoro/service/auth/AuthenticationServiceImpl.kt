@@ -39,29 +39,13 @@ class AuthenticationServiceImpl : AuthenticationService {
     @Qualifier(Constants.BeanQualifier.LOGIN_REQUEST_VALIDATOR)
     private lateinit var loginValidator: RequestValidator
 
-    override fun createAdminAccount(userDto: UserDto?): ResponseEntity<*> {
-        return ServerResponse.ok()
-    }
-
-    override fun createManagerAccount(userDto: UserDto?): ResponseEntity<*> {
-        return ServerResponse.ok()
-    }
-
-    override fun createHrAccount(userDto: UserDto?): ResponseEntity<*> {
-        return ServerResponse.ok()
-    }
-
-    override fun createEmployeeAccount(userDto: UserDto?): ResponseEntity<*> {
-        return ServerResponse.ok()
-    }
-
-    override fun createCustomerAccount(userDto: UserDto?): ResponseEntity<*> {
+    override fun createAccount(userDto: UserDto?): ResponseEntity<*> {
         val validationResult = signUpValidator.isValid(userDto)
         if (validationResult.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return validationResult
 
         return try {
             userRepository.save(requireNotNull(userDto).toEntity(passwordEncoder))
-            ServerResponse.created(message = "Customer account created successfully")
+            ServerResponse.created(message = "Account created successfully")
         } catch (e: Exception) {
             ServerResponse.internalServerError(exception = e)
         }

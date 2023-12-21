@@ -19,10 +19,4 @@ tresoro:
   jwt:
     secret-key: 0cb8480164ea5f886a49e5d95541cd4b604f52a335c3c44960de5fd48085e4e4
   admin:
-    secret-key: dummy
-  manager:
-    secret-key: dummy
-  hr:
-    secret-key: dummy
-  employee:
-    secret-key: dummy
+    secret-key: 7e1749b675b73f5e3b4a38b4b3443961f8f57d131c911577b7c7e79b8f9ae848

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.saadahmedev.tresoro.entity.account.Account
 import com.saadahmedev.tresoro.entity.branch.Branch
 import com.saadahmedev.tresoro.entity.user.User
-import com.saadahmedev.tresoro.repository.account.AccountStatus
-import com.saadahmedev.tresoro.repository.account.AccountType
-import com.saadahmedev.tresoro.repository.account.Currency
+import com.saadahmedev.tresoro.entity.account.AccountStatus
+import com.saadahmedev.tresoro.entity.account.AccountType
+import com.saadahmedev.tresoro.entity.account.Currency
 import com.saadahmedev.tresoro.util.DateUtil
 import com.saadahmedev.tresoro.util.getUniqueAccountNumber
 

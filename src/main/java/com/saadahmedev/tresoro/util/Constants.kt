@@ -7,5 +7,6 @@ object Constants {
         const val BRANCH_REQUEST_VALIDATOR = "branchRequestValidator"
         const val USER_REQUEST_VALIDATOR = "userRequestValidator"
         const val ACCOUNT_REQUEST_VALIDATOR = "accountRequestValidator"
+        const val TRANSACTION_REQUEST_VALIDATOR = "transactionRequestValidator"
     }
 }

@@ -1,4 +1,4 @@
-package com.saadahmedev.tresoro.repository.account
+package com.saadahmedev.tresoro.entity.account
 
 enum class AccountType {
     SAVINGS, STUDENT, CURRENT, FDR

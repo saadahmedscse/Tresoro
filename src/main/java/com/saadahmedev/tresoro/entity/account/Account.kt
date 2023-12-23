@@ -3,9 +3,6 @@ package com.saadahmedev.tresoro.entity.account
 import com.saadahmedev.tresoro.dto.account.AccountResponse
 import com.saadahmedev.tresoro.entity.branch.Branch
 import com.saadahmedev.tresoro.entity.user.User
-import com.saadahmedev.tresoro.repository.account.AccountStatus
-import com.saadahmedev.tresoro.repository.account.AccountType
-import com.saadahmedev.tresoro.repository.account.Currency
 import jakarta.persistence.*
 
 @Entity

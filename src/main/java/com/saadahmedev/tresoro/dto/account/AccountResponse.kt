@@ -3,9 +3,9 @@ package com.saadahmedev.tresoro.dto.account
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.saadahmedev.tresoro.dto.user.UserResponse
 import com.saadahmedev.tresoro.entity.branch.Branch
-import com.saadahmedev.tresoro.repository.account.AccountStatus
-import com.saadahmedev.tresoro.repository.account.AccountType
-import com.saadahmedev.tresoro.repository.account.Currency
+import com.saadahmedev.tresoro.entity.account.AccountStatus
+import com.saadahmedev.tresoro.entity.account.AccountType
+import com.saadahmedev.tresoro.entity.account.Currency
 
 data class AccountResponse (
     val id: Long? = null,

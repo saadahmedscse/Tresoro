@@ -38,9 +38,9 @@ open class BranchServiceImpl : BranchService {
 
     override fun getBranch(id: Long): ResponseEntity<*> {
         val existenceResult = branchValidator.isExist(id, branchRepository)
-        if (existenceResult.response.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult.response
+        if (existenceResult.var1.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult.var1
 
-        return ServerResponse.body(requireNotNull(existenceResult.result))
+        return ServerResponse.body(requireNotNull(existenceResult.var2))
     }
 
     override fun getBranches(): ResponseEntity<*> {
@@ -54,9 +54,9 @@ open class BranchServiceImpl : BranchService {
     @Transactional
     override fun updateBranch(id: Long, branchDto: BranchDto?): ResponseEntity<*> {
         val updateValidationResult = branchValidator.isUpdateRequestValid(id, branchDto, branchRepository)
-        if (updateValidationResult.response.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return updateValidationResult.response
+        if (updateValidationResult.var1.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return updateValidationResult.var1
 
-        val branch = requireNotNull(updateValidationResult.result)
+        val branch = requireNotNull(updateValidationResult.var2)
         requireNotNull(branchDto)
 
         if (!branchDto.branchName.isNullOrBlank()) branch.branchName = branchDto.branchName
@@ -74,7 +74,7 @@ open class BranchServiceImpl : BranchService {
     @Transactional
     override fun deleteBranch(id: Long): ResponseEntity<*> {
         val existenceResult = branchValidator.isExist(id, branchRepository)
-        if (existenceResult.response.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult.response
+        if (existenceResult.var1.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult.var1
 
         return try {
             branchRepository.deleteById(id)

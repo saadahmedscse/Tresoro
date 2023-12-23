@@ -1,5 +1,8 @@
 package com.saadahmedev.tresoro.entity.account
 
+import com.saadahmedev.tresoro.dto.account.AccountResponse
+import com.saadahmedev.tresoro.entity.branch.Branch
+import com.saadahmedev.tresoro.entity.user.User
 import com.saadahmedev.tresoro.repository.account.AccountStatus
 import com.saadahmedev.tresoro.repository.account.AccountType
 import com.saadahmedev.tresoro.repository.account.Currency
@@ -32,13 +35,33 @@ data class Account(
     @Column(name = "last_transaction_date")
     var lastTransactionDate: String? = null,
 
-    @Column(name = "customer_id", nullable = false, updatable = false)
-    var customerId: Long? = null,
-    @Column(name = "branch_id", nullable = false, updatable = false)
-    var branchId: Long? = null,
+    @ManyToOne
+    @JoinColumn(name = "customer_id", updatable = false)
+    var customer: User? = null,
+    @ManyToOne
+    @JoinColumn(name = "branch_id", updatable = false)
+    var branch: Branch? = null,
 
     @Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: String? = null,
     @Column(name = "updated_at", nullable = false)
     var updatedAt: String? = null
-)
+) {
+    fun toResponse(): AccountResponse {
+        return AccountResponse(
+            id = id,
+            accountNumber = accountNumber,
+            balance = balance,
+            currency = currency,
+            accountType = accountType,
+            status = status,
+            interestRate = interestRate,
+            dateOpened = dateOpened,
+            lastTransactionDate = lastTransactionDate,
+            customer = customer?.toResponse(),
+            branch = branch,
+            createdAt = createdAt,
+            updatedAt = updatedAt
+        )
+    }
+}

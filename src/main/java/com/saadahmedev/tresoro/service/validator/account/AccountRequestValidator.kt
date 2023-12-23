@@ -44,7 +44,7 @@ class AccountRequestValidator : RequestValidator<Account, AccountDto, Long, Acco
     }
 
     fun isAccountExist(id: Long, userId: Long): ResponseWithResult<ResponseEntity<ApiResponse>, Account> {
-        val optionalAccount = accountRepository.findByIdAndCustomerId(id, userId)
+        val optionalAccount = accountRepository.getAccountWithLastTransactionDate(id, userId)
 
         return if (optionalAccount.isPresent) {
             ResponseWithResult(

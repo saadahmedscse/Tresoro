@@ -35,7 +35,15 @@ open class SecurityConfiguration {
                 it.requestMatchers(
                     "api/auth/create-customer",
                     "api/auth/create-admin",
-                    "api/auth/login"
+                    "api/auth/login",
+                    "/swagger-resources",
+                    "/swagger-resources/**",
+                    "/configuration/ui",
+                    "/configuration/security",
+                    "/swagger-ui.html",
+                    "/webjars/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**"
                 ).permitAll()
                     .anyRequest().authenticated()
             }

@@ -14,7 +14,7 @@ abstract class RequestValidator<E, T, ID, R: JpaRepository<E, ID>> {
 
     open fun isUpdateRequestValid(id: ID & Any , body: T?, repository: R): ResponseWithResult<ResponseEntity<ApiResponse>, E> {
         val existenceResult = isExist(id, repository)
-        if (existenceResult.response.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult
+        if (existenceResult.var1.statusCode.isSameCodeAs(HttpStatus.BAD_REQUEST)) return existenceResult
 
         if (body == null) {
             return ResponseWithResult(
@@ -25,7 +25,7 @@ abstract class RequestValidator<E, T, ID, R: JpaRepository<E, ID>> {
 
         return ResponseWithResult(
             ServerResponse.ok(),
-            existenceResult.result
+            existenceResult.var2
         )
     }
 

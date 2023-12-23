@@ -74,7 +74,7 @@ class JwtService {
     }
 
     private fun setupClaims(claims: HashMap<String, Any>, username: String) {
-        val simplifiedUserWrapper = userRepository.findByEmail(username).get().toUserResponse()
+        val simplifiedUserWrapper = userRepository.findByEmail(username).get().toResponse()
         claims["user"] = simplifiedUserWrapper
         claims["authority"] = simplifiedUserWrapper.role?.name.ifNullOrBlank { "" }
     }

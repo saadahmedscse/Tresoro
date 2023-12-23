@@ -2,6 +2,8 @@ package com.saadahmedev.tresoro.dto.account
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.saadahmedev.tresoro.entity.account.Account
+import com.saadahmedev.tresoro.entity.branch.Branch
+import com.saadahmedev.tresoro.entity.user.User
 import com.saadahmedev.tresoro.repository.account.AccountStatus
 import com.saadahmedev.tresoro.repository.account.AccountType
 import com.saadahmedev.tresoro.repository.account.Currency
@@ -19,7 +21,7 @@ data class AccountDto(
     @JsonProperty("branch_id")
     var branchId: Long? = null
 ) {
-    fun toEntity(): Account {
+    fun toEntity(customer: User, branch: Branch): Account {
         return Account(
             accountNumber = getUniqueAccountNumber(),
             balance = "0.0",
@@ -28,8 +30,8 @@ data class AccountDto(
             status = AccountStatus.ACTIVE,
             interestRate = 0.9,
             dateOpened = DateUtil.timeInstant(),
-            customerId = customerId,
-            branchId = branchId,
+            customer = customer,
+            branch = branch,
             createdAt = DateUtil.timeInstant(),
             updatedAt = DateUtil.timeInstant()
         )

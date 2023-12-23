@@ -52,7 +52,7 @@ data class User(
 
     override fun isEnabled(): Boolean = true
 
-    fun toUserResponse(): UserResponse {
+    fun toResponse(): UserResponse {
         return UserResponse(
             id = id,
             firstName = firstName,
